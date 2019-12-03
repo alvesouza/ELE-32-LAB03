@@ -18,12 +18,13 @@ for j = 1:size(MatrixVlinha,1)
             if i+T>colunas
                 estadosCaminho = Inf(size(saidas,1),colunas-i+1);
                 estadosCaminho(estadoAtual,1) = 0;
-                [VecLinha,custoInter] = decodiLinha(estadoAtual,transicoes, saidas,MatrixVlinha(j,i:colunas),1,colunas-i+1);
+                [VecLinha,custoInter,estadosCaminho] = decodiLinha(estadoAtual,transicoes, saidas,MatrixVlinha(j,i:colunas),1,colunas-i+1,estadosCaminho);
             else
                 estadosCaminho = Inf(size(saidas,1),T+1);
                 estadosCaminho(estadoAtual,1) = 0;
-                [VecLinha,custoInter] = decodiLinha(estadoAtual,transicoes, saidas,MatrixVlinha(j,i:(i+T)),1,T+1);
+                [VecLinha,custoInter,estadosCaminho] = decodiLinha(estadoAtual,transicoes, saidas,MatrixVlinha(j,i:(i+T)),1,T+1,estadosCaminho);
             end
+            %estadosCaminho = estadosCaminho
             if custo>custoInter
                 melhorVecLinha = VecLinha;
                 custo = custoInter;
@@ -44,6 +45,7 @@ for j = 1:size(MatrixVlinha,1)
                     estadosEncontrados = [estadosEncontrados linhaEstado];
                 end
             end
+            %estadosEncontrados = estadosEncontrados
         end
     end
 	custos(j) = custof;
