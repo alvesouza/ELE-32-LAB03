@@ -1,4 +1,4 @@
-T = 400;
+T = 20;
 g = [13 15 17;25 33 37;117 127 155];
 vecp = [0.5 0.2 0.1];
 p = zeros(1,18);
@@ -12,7 +12,7 @@ end
 pb1 = zeros(1,size(p,2));
 pb2 = zeros(1,size(p,2));
 pb3 = zeros(1,size(p,2));
-colunas = 10000;
+bits = 10000;
 linhas = 1;
 q = 0.5;
 [G1,estados1,transicoes1, saidas1] = criaMaquinaCodificador(g(1,:));
@@ -22,20 +22,24 @@ lim = size(p,2);
 i = 0;
 while i<lim
     i = i + 1;
-    h = i + 4
+    h = i + 1
     if h > lim
         h = lim;
     end
     parfor j = i : h
         %i = j;
-        pb1(j) = perro(linhas,colunas,p(j),q, T,transicoes1, saidas1)
+        pb1(j) = perro(linhas,bits,p(j),q,transicoes1, saidas1,4)
+        pb2(j) = perro(linhas,bits,p(j),q,transicoes2, saidas2,4)
+        pb3(j) = perro(linhas,bits,p(j),q,transicoes3, saidas3,4)
         %pb(i) = Erros(numeroBits,bitInformacaoPalavra,q,p(i),randi([0,2^31]));
     end
     i = h;
 end
 
 hold on
-plot(p,pb1);
-plot(p,pb2);
-plot(p,pb3);
+loglog(p,p);
+loglog(p,pb1);
+loglog(p,pb2);
+loglog(p,pb3);
+set(gca, 'XDir','reverse')
 hold off

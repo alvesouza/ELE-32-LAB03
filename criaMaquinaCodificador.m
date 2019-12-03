@@ -38,4 +38,3 @@ for i =  1:2^colunas
 end
 
 end
-

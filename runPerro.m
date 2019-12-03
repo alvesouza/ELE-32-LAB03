@@ -4,5 +4,5 @@ MatrixU = criaMatrizU(1,10000,0.5)
 [MatrixV] = codificador(MatrixU,transicoes, saidas)
 
 [erros,MatrixVlinha] = BSCchannel(MatrixV, p)
-[custos,MatrixR] = decodificador(MatrixVlinha,transicoes, saidas, 100)
+[custos,caminho,MatrixR] = decodificador(MatrixVlinha,transicoes, saidas)
 [MatrizErro,valor] = numeroDeErrosFinal(MatrixU, MatrixR)

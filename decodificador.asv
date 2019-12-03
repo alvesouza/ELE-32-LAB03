@@ -23,14 +23,14 @@ for i = 1:size(saidas,1)
 end
 for i = 1:size(custoAdcional1,2)
     for j = 1:size(custoAdcional1,1)
-        custoAdcional1(j,i) = sum(rem(bitsSaida1(j,:)+MatrixVlinha(:,i)',2));
-        custoAdcional2(j,i) = sum(rem(bitsSaida2(j,:)+MatrixVlinha(:,i)',2));
+        custoAdcional1(j,i) = sum(rem(bitsSaida1(j,:)+MatrixVlinha(:,j)',2));
+        custoAdcional2(j,i) = sum(rem(bitsSaida2(j,:)+MatrixVlinha(:,j)',2));
     end
 end
 while indexColuna > 0
     if indexColuna <= fim
         custo1 = custosCaminho(estadoAtual,indexColuna) + custoAdcional1(estadoAtual,indexColuna);
-        custo2 = custosCaminho(estadoAtual,indexColuna) + custoAdcional2(estadoAtual,indexColuna);
+        custo2 = custosCaminho(estadoAtual,indexColuna) + sum(rem(bitsSaida2(estadoAtual,:)+MatrixVlinha(:,indexColuna)',2));
         proximoEstado1 = transicoes(estadoAtual,1);
         proximoEstado2 = transicoes(estadoAtual,2);
         indexProximo = indexColuna+1;
