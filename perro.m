@@ -11,6 +11,7 @@ for i = 1:amostras
 end
 %perros = perros
 %p = p
+perros = perros
 pe = sum(perros)/amostras;
 end
 
