@@ -23,7 +23,7 @@ p1 = zeros(1,size(Ei_N0,2));
 for i = 1:size(Ei_N0,2)
     p1(i) = gerap(Ei_N0(i)/3);
 end
-pViterbiHamming = zeros(1,size(p1,2));
+pViterbiProb1 = zeros(1,size(p1,2));
 %pb2 = zeros(1,size(p2,2));
 %pb3 = zeros(1,size(p3,2));
 [G1,estados1,transicoes1, saidas1] = criaMaquinaCodificador(g(1,:));
@@ -40,7 +40,7 @@ while i<lim
     end
     parfor j = i : h1
         %i = j;
-        pViterbiHamming1(j) = perro(linhas,bits,p1(j),q,transicoes1, saidas1,4);
+        pViterbiProb1(j) = perro(linhas,bits,p1(j),q,transicoes1, saidas1,1);
         %pViterbiHamming2(j) = perro(linhas,bits,p2(j),q,transicoes2, saidas2,4)
         %pViterbiHamming3(j) = perro(linhas,bits,p3(j),q,transicoes3, saidas3,1)
     end
@@ -50,7 +50,7 @@ end
 
 hold on
 %plot(20*log(p1)/log(10),20*log(p1)/log(10));
-plot(20*log(Ei_N0)/log(10),log(pViterbiHamming)/log(10));
+plot(20*log(Ei_N0)/log(10),log(pViterbiProb1)/log(10));
 %plot(p2,pb2);
 %plot(p3,pb3);
 set(gca, 'XDir','reverse')

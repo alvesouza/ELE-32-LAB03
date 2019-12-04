@@ -4,8 +4,8 @@ function [menorCusto,caminho,MatrixR] = decodificador(MatrixVlinha,transicoes, s
 MatrixR = zeros(size(MatrixVlinha,1),size(MatrixVlinha,2));
 custos = zeros(size(MatrixVlinha,1),1);
 fim = size(MatrixVlinha,2);
-custosCaminho = Inf(size(saidas,1),fim+1);
-estadosAnteriores = Inf(size(saidas,1),fim);
+custosCaminho = -1*Inf(size(saidas,1),fim+1);
+estadosAnteriores = -1*Inf(size(saidas,1),fim);
 estadoInicial = 1;
 custosCaminho(estadoInicial,1) = 0;
 menorCusto = Inf;
@@ -38,19 +38,19 @@ while indexColuna > 0
         indexProximo = indexColuna+1;
     end
     if indexColuna == fim+1
-        if menorCusto > custosCaminho(estadoAtual,indexColuna)
+        if menorCusto < custosCaminho(estadoAtual,indexColuna)
             menorCusto = custosCaminho(estadoAtual,indexColuna);
             melhorEstadoFinal = estadoAtual;
         end
         indexColuna = indexColuna-1;
         estadoAtual = estadosAnteriores(estadoAtual,indexColuna);
-    elseif custo1 <= custo2
-        if (custo1 <custosCaminho(proximoEstado1,indexProximo))&&(menorCusto>custo1)
+    elseif custo1 >= custo2
+        if (custo1 >custosCaminho(proximoEstado1,indexProximo))
             estadosAnteriores(proximoEstado1,indexColuna) = estadoAtual;
             custosCaminho(proximoEstado1,indexProximo) = custo1;
             indexColuna = indexProximo;
             estadoAtual = proximoEstado1;
-        elseif (custo2<custosCaminho(proximoEstado2,indexProximo))&&(menorCusto>custo2)
+        elseif (custo2>custosCaminho(proximoEstado2,indexProximo))
             custosCaminho(proximoEstado2,indexProximo) = custo2;
             estadosAnteriores(proximoEstado2,indexColuna) = estadoAtual;
             indexColuna = indexProximo;
@@ -61,13 +61,13 @@ while indexColuna > 0
                 estadoAtual = estadosAnteriores(estadoAtual,indexColuna);
             end
         end 
-    elseif custo1 > custo2
-        if (custo2<custosCaminho(proximoEstado2,indexProximo))&&(menorCusto>custo2)
+    elseif custo1 < custo2
+        if (custo2>custosCaminho(proximoEstado2,indexProximo))
             custosCaminho(proximoEstado2,indexProximo) = custo2;
             estadosAnteriores(proximoEstado2,indexColuna) = estadoAtual;
             indexColuna = indexProximo;
             estadoAtual = proximoEstado2;
-        elseif (custo1 <custosCaminho(proximoEstado1,indexProximo))&&(menorCusto>custo1)
+        elseif (custo1 >custosCaminho(proximoEstado1,indexProximo))
             estadosAnteriores(proximoEstado1,indexColuna) = estadoAtual;
             custosCaminho(proximoEstado1,indexProximo) = custo1;
             indexColuna = indexProximo;
