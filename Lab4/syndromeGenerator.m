@@ -1,0 +1,40 @@
+function [syndromes, errorPatterns] = syndromeGenerator(n, g, minimumDistance)
+    
+    % Max distance from a corect word
+    d = floor((minimumDistance - 1)/2);
+    
+    
+    if (d == 1)
+        errorPatterns = [1 zeros(1, n-1)];
+    end
+    if (d == 2)
+        errorPatterns = [errorPatterns; [ones(n-1, 1) eye(n-1)]];
+    end
+
+    
+    
+    % Possible error patterns
+%    errorPatterns = fliplr(dec2bin(0:1:2^n - 1) - '0');
+    
+    
+%     % It was done in a a bit dumb way, but ok, it works
+%     line = 1;
+%     while line <= size(errorPatterns, 1)         
+%         if(errorPatterns(line, 1) == 0 || sum(errorPatterns(line, :)) > d)
+%             errorPatterns(line, :) = [];
+%         else
+%             line = line + 1;
+%         end           
+%     end
+
+    [lins, cols] = size(errorPatterns);
+    syndromesProv = zeros(lins, cols);
+    
+    for line = 1:lins
+        [~, r] = deconv(fliplr(errorPatterns(line, :)),fliplr(g));       
+        syndromesProv(line, :) = mod(fliplr(r), 2);
+    end    
+    
+    syndromes = syndromesProv(:, 1:(size(g, 2) - 1));
+
+end
