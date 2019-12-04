@@ -1,0 +1,14 @@
+prob = 0.02;
+amostras = 4;
+[G1,estados1,transicoes1, saidas1] = criaMaquinaCodificador(g(1,:));
+[G2,estados2,transicoes2, saidas2] = criaMaquinaCodificador(g(2,:));
+[G3,estados3,transicoes3, saidas3] = criaMaquinaCodificador(g(3,:));
+MatrixU = criaMatrizU(1,10000,q);
+tic
+    [MatrixV1] = codificador(MatrixU1,transicoes1, saidas1)
+timeElapsed = toc;
+[erros,MatrixVlinha] = BSCchannel(MatrixV, 0.2);
+tic
+    [custos,caminho,MatrixR1] = decodificador(MatrixVlinha1,transicoes1, saidas1);
+timeElapsed = toc
+tempoDec1 = timeElapsed/10000

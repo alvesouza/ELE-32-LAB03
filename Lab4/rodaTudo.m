@@ -1,12 +1,12 @@
 %%
 %Seta variaveis de Hamming
 %p = linspace(0.5,0,10001); 
-Ei_N0Hamming = 10.^(0:1/(4*20):15/20);
+Ei_N0 = 10.^(0:1/(4*20):15/20);
 %%
-p = zeros(1,size(Ei_N0Hamming,2));
-pbHamming4_7 = zeros(1,size(Ei_N0Hamming,2));
+p = zeros(1,size(Ei_N0,2));
+pbHamming4_7 = zeros(1,size(Ei_N0,2));
 for i = 1:size(p,2)
-    p(i) = gerap(Ei_N0Hamming(i)*7/4);
+    p(i) = gerap(Ei_N0(i)*4/7);
 end
 numeroBits = 4*250000;
 bitInformacaoPalavra = 4;
@@ -16,12 +16,12 @@ for i = 1 : size(p,2)
     %pb(i) = Erros(numeroBits,bitInformacaoPalavra,q,p(i),randi([0,2^31]));
 end
 %%
-plot(20*log(Ei_N0Hamming)/log(10),log(pbHamming4_7)/log(10),'blue');
+plot(20*log(Ei_N0)/log(10),log(pbHamming4_7)/log(10),'blue');
 %%
-p = zeros(1,size(Ei_N0Hamming,2));
-pbHamming11_15 = zeros(1,size(Ei_N0Hamming,2));
+p = zeros(1,size(Ei_N0,2));
+pbHamming11_15 = zeros(1,size(Ei_N0,2));
 for i = 1:size(p,2)
-    p(i) = gerap(Ei_N0Hamming(i)*15/11);
+    p(i) = gerap(Ei_N0(i)*11/15);
 end
 %p = linspace(0.5,0,10001);
 numeroBits = 11*125000;
@@ -33,29 +33,28 @@ for i = 1 : size(p,2)
 end
 %%
 %plot hamming 11/15(projetado por mim e o avan)
-plot(20*log(Ei_N0Hamming)/log(10),log(pbHamming11_15)/log(10),'red');
+plot(20*log(Ei_N0)/log(10),log(pbHamming11_15)/log(10),'red');
 %%
 %não codificado
-pncod = zeros(1,size(Ei_N0Hamming,2));
-pbHamming11_15 = zeros(1,size(Ei_N0Hamming,2));
+pncod = zeros(1,size(Ei_N0,2));
 for i = 1:size(pncod,2)
-    pncod(i) = gerap(Ei_N0Hamming(i)*1/1);
+    pncod(i) = gerap(Ei_N0(i)*1/1);
 end
 %%
 %plot não decodificado
-plot(20*log(Ei_N0Hamming)/log(10),log(pncod)/log(10),'black');
+plot(20*log(Ei_N0)/log(10),log(pncod)/log(10),'black');
 %%
 %plot hammings, com não decodificado
 hold on
-plot(20*log(Ei_N0Hamming)/log(10),log(pncod)/log(10),'black');
-plot(20*log(Ei_N0Hamming)/log(10),log(pbHamming4_7)/log(10),'blue');
-plot(20*log(Ei_N0Hamming)/log(10),log(pbHamming11_15)/log(10),'red');
+plot(20*log(Ei_N0)/log(10),log(pncod)/log(10),'black');
+plot(20*log(Ei_N0)/log(10),log(pbHamming4_7)/log(10),'blue');
+plot(20*log(Ei_N0)/log(10),log(pbHamming11_15)/log(10),'red');
 hold off
 %%
 n = 20;
-p = zeros(1,size(Ei_N0Hamming,2));
+p = zeros(1,size(Ei_N0,2));
 for i = 1:size(p,2)
-    p(i) = gerap(Ei_N0Hamming(i)*7/4);
+    p(i) = gerap(Ei_N0(i)*Taxa);
 end
 Pb=zeros(1,length(p));
 
