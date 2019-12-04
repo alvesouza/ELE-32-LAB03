@@ -1,0 +1,58 @@
+function output = decoder(received, g, minimumDistance)
+       
+    n = size(received, 2);
+
+    % Decoding
+    read = received;
+    % Generates all the possible values for the syndrome and the
+    % related ErrorPattern
+    [syndromes, errorPatterns] = syndromeGenerator(n, g, minimumDistance); 
+    
+    % Finds the sindrome for this case
+    [~, r] = deconv(fliplr(received), fliplr(g));
+    localSyndrome = mod(fliplr(r), 2);
+    localSyndrome = localSyndrome(1, 1:size(g, 2) - 1);
+    
+    
+    if(sum(localSyndrome(1, :) ~= 0))
+        correct = 0;
+        for syndrCounter = 1:size(syndromes, 1)
+            
+            % A bool check to avoid errors
+            if(correct == 1)
+                break;
+            end
+         
+            % A counter for the number of rotations so that it will be
+            % possible to derotate the codeword after correcting it
+            rotationsCounter = 0;
+            
+            for k = 1:size(read, 2)
+                
+               if(localSyndrome == syndromes(syndrCounter, :))
+                    read = mod(read + errorPatterns(syndrCounter, :), 2);
+                    correct = 1;
+                    break;
+               else
+                   read = rotate(read);
+                   
+                   [~, r] = deconv(fliplr(read), fliplr(g));
+                   localSyndrome = mod(fliplr(r), 2);
+                   localSyndrome = localSyndrome(1, 1:size(g, 2) - 1);
+                   
+                   rotationsCounter = rotationsCounter + 1;
+               end
+               
+            end
+             
+        end
+        
+        if(correct == 1)
+            % If the information was rotated, then it derotate it
+            for rotCount = (rotationsCounter + 1):(size(read, 2))
+                read = rotate(read);
+            end
+        end
+    end
+    output = fliplr(mod(deconv(fliplr(read) ,fliplr(g)), 2));
+end

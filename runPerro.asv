@@ -1,8 +1,0 @@
-p = 0.05;
-[G,estados,transicoes, saidas] = criaMaquinaCodificador([13,15,17])
-MatrixU = criaMatrizU(1,10000,0.5)
-[MatrixV] = codificador(MatrixU,transicoes, saidas)
-
-[erros,MatrixVlinha] = BSCchannel(MatrixV, p)
-[custos,caminho,MatrixR] = decodificador(MatrixVlinha,transicoes, saidas)
-[MatrizErro,valor] = numeroDeErrosFinal(MatrixU, MatrixR)
