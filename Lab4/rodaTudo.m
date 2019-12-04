@@ -54,7 +54,7 @@ hold off
 n = 20;
 p = zeros(1,size(Ei_N0,2));
 for i = 1:size(p,2)
-    p(i) = gerap(Ei_N0(i)*Taxa);
+    p(i) = gerap(Ei_N0(i)*0.6);
 end
 Pb=zeros(1,length(p));
 

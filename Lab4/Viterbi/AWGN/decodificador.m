@@ -1,4 +1,4 @@
-function [menorCusto,caminho,MatrixR] = decodificador(MatrixVlinha,transicoes, saidas,p)
+function [menorCusto,caminho,MatrixR] = decodificador(MatrixVlinha,transicoes, saidas)
 %DECODIFICADOR Summary of this function goes here
 %   Detailed explanation goes here
 MatrixR = zeros(size(MatrixVlinha,1),size(MatrixVlinha,2));
